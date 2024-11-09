@@ -6,8 +6,6 @@ import RPi.GPIO as GPIO
 
 # use GPIO numbering
 GPIO.setmode(GPIO.BCM)
-button_pin = 12
-GPIO.setup(buttonPin, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 CHUNK_SIZE = 1024
 
@@ -19,7 +17,7 @@ CHUNK_SIZE = 1024
 
 # Retrieve the server address and port from the command-line arguments
 server_address = "XX:XX:XX:XX:XX:XX"        # format: "XX:XX:XX:XX:XX:XX"
-port = 1
+port = 4
 
 client_socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 
@@ -29,7 +27,7 @@ except bluetooth.btcommon.BluetoothError as e:
     print(f"Bluetooth error: {e}")
 
 # For each piece of data read from sensor, send the data
-data_lists = sensorReader.readHeartData(30)
+data_lists = sensors.readHeartData(30)
 for data in data_lists:
     data_str = np.array2string(data,separator=",")
     bytes_to_send = data_str.encode()
